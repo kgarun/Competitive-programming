@@ -3,61 +3,46 @@ using namespace std;
 
 typedef long long ll;
 
+unordered_map<ll,bool> visited;
 
 
 int main(){
 
-	ll t;
+	ll n,t,s,r,cnt=0;
 
-	cin>>t;
+	cin>>n;
 
-	while(t--){
+	while(1){
 
-		ll n,s,i,j,cnt=0;
+		t=n;
 
-		cin>>n>>s;
+		s=0;
 
-		vector<bool> visited(n+1,0);
+		++cnt;
 
-		for(i=n;i>0;--i){
+		while(t){
 
-			if(visited[i]==0){
+			r=t%10;
 
-				++cnt;
+			s+=r*r;
 
-				visited[i]=1;
-
-				for(j=1;j<=sqrt(i);++j){
-
-					if(j%i==0 && visited[j]==0) visited[j]=1;
-				}
-
-			}
+			t/=10;
 
 		}
 
-		if(cnt&1){
+		n=s;
 
-			if(s==0) cout<<"Airborne wins.\n";
+		//cout<<s<<"\n";
 
-			else cout<<"Pagfloyd wins.\n";
+		if(s==1 || visited[s]==1) break;
 
-		}
-
-		else{
-
-			if(s==1) cout<<"Airborne wins.\n";
-
-			else cout<<"Pagfloyd wins.\n";
-
-
-
-
-		}
+		visited[s]=1;
 
 
 	}
 
-	
+
+	if(s==1)cout<<cnt;
+	else cout<<-1;
 
 }
