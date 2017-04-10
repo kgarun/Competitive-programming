@@ -11,7 +11,7 @@ void dfs(int i,int j,int n){
 
 		visited[i][j]=1;
 
-		cout<<i<<" "<<j<<"\n";
+		//cout<<i<<" "<<j<<"\n";
 
 		dfs(i-1,j,n);
 
