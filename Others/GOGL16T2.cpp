@@ -8,11 +8,23 @@ LANG: C++
  
 using namespace std;
  
-#define ll long long
+#define ll long long int
  
 ifstream f("data.in");
  
 ofstream g("data.out");
+ 
+struct saree{
+ 
+ll minc,maxc,cost;
+ 
+saree(){
+    minc=maxc=cost=0;
+    }
+ 
+}s[100005];
+ 
+bool cmp(saree a,saree b){return a.cost<b.cost;}
  
  
  
@@ -23,48 +35,56 @@ int main(){
  
     cin.tie(NULL);
  
-	ll i,j,k,t=0,n,m,mins,maxs,cost,rem;
- 
-	map<ll,ll> costmap;
- 
-	cin>>n>>m;
- 
-	rem=n;
- 
-	for(i=0;i<m;++i){
- 
-        cin>>mins>>maxs>>cost;
- 
-        t+=mins*cost;
- 
-        costmap[cost]=maxs-mins;
- 
-        rem-=mins;
+    ll i,j,k,t,n,m,total=0,rem=0,available;
  
  
-	}
  
-	for(auto available:costmap){
+    cin>>n>>m;
  
+    rem=n;
  
-            if(!rem) break;
+    for(i=0;i<m;++i) {
+            cin>>s[i].minc>>s[i].maxc>>s[i].cost;
+            total+=s[i].minc*s[i].cost;
+            rem-=s[i].minc;
+    }
  
-            if((available.second)>0) {
+    sort(s,s+m,cmp);
  
-            if((available.second)>=rem){
-                t+=(rem*(available.first));
-                break;
+    for(i=0;i<m;++i){
+          /*  for(j=s[i].maxc-s[i].minc;j>0;--j)
+            {
+                total+=s[i].cost;
+                --rem;
+                 if(!rem) goto print;
+
+            }*/
+            available=s[i].maxc-s[i].minc;
+ 
+            if(!rem) goto print;
+ 
+            if(available>=rem){
+                total+=rem*s[i].cost;
+                goto print;
             }
             else{
-                t+=(available.first)*(available.second);
-                rem-=(available.second);
+                total+=available*s[i].cost;
+                rem-=available;
             }
  
-            }
+    }
  
-	}
+    print:
+    cout<<total;
  
-	cout<<t;
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  
  
